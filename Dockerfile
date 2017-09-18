@@ -21,6 +21,12 @@ RUN wget -O /var/lib/clamav/main.cvd http://database.clamav.net/main.cvd && \
     wget -O /var/lib/clamav/bytecode.cvd http://database.clamav.net/bytecode.cvd && \
     chown clamav:clamav /var/lib/clamav/*.cvd
 
+RUN usermod --uid 333 clamav && \
+    groupmod --gid 333 clamav && \
+    chown -R clamav:clamav \
+        /var/lib/clamav \
+        /var/log/clamav
+
 RUN mkdir /var/run/clamav && \
     chown clamav:clamav /var/run/clamav && \
     chmod 750 /var/run/clamav
